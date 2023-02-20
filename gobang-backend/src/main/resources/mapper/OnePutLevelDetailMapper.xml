@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lele.gobang.mapper.OnePutLevelDetailMapper">
+
+    <resultMap id="BaseResultMap" type="com.lele.gobang.model.domain.OnePutLevelDetail">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="levelId" column="level_id" jdbcType="INTEGER"/>
+        <result property="isPass" column="is_pass" jdbcType="TINYINT"/>
+        <result property="isPlay" column="is_play" jdbcType="TINYINT"/>
+        <result property="passTime" column="pass_time" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,level_id,
+        is_pass,is_play,pass_time
+    </sql>
+
+    <select id="getRankList" resultType="com.lele.gobang.model.dto.OnePutRankInfo">
+        SELECT u.username username,
+        u.avatar avatar,
+        sum(is_pass) passCount,
+        sum(pass_time) passTime,
+        <include refid="getRankCount"/>
+        FROM one_put_level_detail detial
+        JOIN user u ON u.id = detial.user_id
+        JOIN one_put_level oneput ON oneput.level_id = detial.level_id AND oneput.`status` = 0
+        GROUP BY detial.user_id
+        ORDER BY passCount DESC,
+        passTime ASC
+        Limit #{count};
+    </select>
+
+    <select id="getSelfRank" resultType="com.lele.gobang.model.dto.OnePutRankInfo">
+        SELECT u.username username,
+        u.avatar avatar,
+        sum(is_pass) passCount,
+        sum(pass_time) passTime,
+        <include refid="getRankCount"/>
+        FROM one_put_level_detail detial
+        JOIN user u ON u.id = detial.user_id
+        JOIN one_put_level oneput ON oneput.level_id = detial.level_id AND oneput.`status` = 0
+        WHERE detial.user_id = #{userid}
+        GROUP BY detial.user_id
+    </select>
+
+    <sql id="getRankCount">
+        (
+            SELECT count(1) + 1
+            FROM (
+                     SELECT d.user_id,
+                            sum(d.is_pass)   c,
+                            sum(d.pass_time) t
+                     FROM one_put_level_detail d
+                     WHERE u.id != d.user_id
+                     GROUP BY d.user_id
+                 ) k
+            WHERE (sum(detial.pass_time) > t AND c = sum(detial.is_pass))
+               OR c > sum(detial.is_pass)
+        )
+        "rank"
+    </sql>
+</mapper>

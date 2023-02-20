@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lele.gobang.mapper.HomeMapper">
+
+    <resultMap id="BaseResultMap" type="com.lele.gobang.model.domain.Home">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="homeId" column="home_id" jdbcType="VARCHAR"/>
+        <result property="aId" column="a_id" jdbcType="INTEGER"/>
+        <result property="bId" column="b_id" jdbcType="INTEGER"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,home_id,a_id,
+        b_id,password,create_time
+    </sql>
+</mapper>

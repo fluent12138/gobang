@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lele.gobang.mapper.OnePutLevelMapper">
+
+    <resultMap id="BaseResultMap" type="com.lele.gobang.model.domain.OnePutLevel">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="x" column="x" jdbcType="INTEGER"/>
+        <result property="y" column="y" jdbcType="INTEGER"/>
+        <result property="levelId" column="level_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="map" column="map" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="statusInfo" column="status_info" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,x,y,level_id,user_id,description,map,status,status_info
+    </sql>
+
+    <!--    select * from students limit (n-1)*m,m  分页修改-->
+    <select id="getReputationList" resultType="com.lele.gobang.model.dto.OnePutReputation">
+        SELECT u.username           username,
+               u.avatar             avatar,
+               count(level.user_id) levelCount
+        FROM one_put_level level
+                 JOIN user u ON u.id = level.user_id
+        WHERE level.status = 0
+        GROUP BY level.user_id
+        ORDER BY levelCount DESC
+    </select>
+
+    <select id="getPassLevelIds" resultType="java.lang.Integer">
+        SELECT level_id
+        FROM one_put_level level
+        WHERE level.status = 0
+    </select>
+</mapper>

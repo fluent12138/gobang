@@ -1,0 +1,47 @@
+{
+  "name": "gobang-acapp",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@vicons/ionicons5": "^0.12.0",
+    "axios": "^1.2.2",
+    "core-js": "^3.8.3",
+    "jquery": "^3.6.3",
+    "js-cookie": "^3.0.1",
+    "naive-ui": "^2.34.3",
+    "pinia": "^2.0.28",
+    "vue": "^3.2.13",
+    "vue3-lottie": "^2.4.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-service": "~5.0.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}
