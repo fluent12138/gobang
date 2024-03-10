@@ -24,8 +24,6 @@ AcApp比赛作品 : 五子棋
 
 
 ## 👋WebSite 
-- 移动端 : [Gobang-Mobile ](https://app4362.acapp.acwing.com.cn/)
-- AcWing : [Gobang-AcApp](https://app4362.acapp.acwing.com.cn/)
 **移动端展示**
 ![移动端展示](https://cdn.acwing.com/media/article/image/2023/01/15/36510_c3d7dd5a94-web.jpg)
 
